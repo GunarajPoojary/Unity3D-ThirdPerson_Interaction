@@ -1,7 +1,12 @@
 using UnityEngine;
+using System;
 using System.Collections;
 
-public class Interactor : MonoBehaviour
+/// <summary>
+/// Detects nearby interactable objects using an overlap sphere.
+/// Raises events when an interactable is found or lost.
+/// </summary>
+public class InteractionSensor : MonoBehaviour
 {
     [Header("Detection Settings")]
     [SerializeField] private Vector3 _positionOffset;
@@ -17,27 +22,30 @@ public class Interactor : MonoBehaviour
     private WaitForSeconds _interval;
     private bool _enableDetection;
 
-    private IHighlightable _currentHighlightable;
+    private IHighlightable _currentDetected;
+
+    // Events
+    public event Action<IHighlightable> OnInteractableFound;
+    public event Action<IHighlightable> OnInteractableLost;
 
     private void Awake() => _interval = new WaitForSeconds(_checkRate);
 
-    private void Start()
-    {
-        StartDetection();
-    }
+    private void Start() => StartDetection();
 
-    private void OnDestroy()
-    {
-        StopDetection();
-    }
+    private void OnDestroy() => StopDetection();
 
+    /// <summary>
+    /// Starts the detection loop.
+    /// </summary>
     public void StartDetection()
     {
         _enableDetection = true;
-
         _checkRoutine = StartCoroutine(CheckRoutine());
     }
 
+    /// <summary>
+    /// Stops the detection loop.
+    /// </summary>
     public void StopDetection()
     {
         _enableDetection = false;
@@ -46,16 +54,22 @@ public class Interactor : MonoBehaviour
             StopCoroutine(_checkRoutine);
     }
 
+    /// <summary>
+    /// Continuously checks for interactables at a fixed interval while detection is enabled.
+    /// </summary>
     private IEnumerator CheckRoutine()
     {
         while (_enableDetection)
         {
-            CheckForPickup();
+            Detect();
             yield return _interval;
         }
     }
 
-    private void CheckForPickup()
+    /// <summary>
+    /// Detects nearby interactables and triggers events when they change.
+    /// </summary>
+    private void Detect()
     {
         int colliders = Physics.OverlapSphereNonAlloc(
             transform.position + _positionOffset,
@@ -64,28 +78,29 @@ public class Interactor : MonoBehaviour
             _interactableLayer,
             QueryTriggerInteraction.Ignore);
 
-        if (colliders > 0)
+        if (colliders > 0 && _results[0].TryGetComponent(out IHighlightable highlightable))
         {
-            if (_results[0].TryGetComponent(out IHighlightable highlightable))
-            {
-                if (highlightable == _currentHighlightable) return;
+            if (highlightable == _currentDetected) return;
 
-                _currentHighlightable = highlightable;
-                _currentHighlightable.Highlight();
-            }
-            else
-            {
-                _currentHighlightable?.UnHighlight();
-                _currentHighlightable = null;
-            }
+            // Found a new interactable
+            OnInteractableLost?.Invoke(_currentDetected);
+            _currentDetected = highlightable;
+            OnInteractableFound?.Invoke(_currentDetected);
         }
         else
         {
-            _currentHighlightable?.UnHighlight();
-            _currentHighlightable = null;
+            if (_currentDetected != null)
+            {
+                // Lost the previously detected interactable
+                OnInteractableLost?.Invoke(_currentDetected);
+                _currentDetected = null;
+            }
         }
     }
 
+    /// <summary>
+    /// Draws a gizmo in the editor to visualize the detection sphere (for debugging).
+    /// </summary>
     private void OnDrawGizmos()
     {
         if (!_enableGizmo) return;
