@@ -15,8 +15,9 @@ public class Interactor : MonoBehaviour
     private readonly Collider[] _results = new Collider[1];
     private Coroutine _checkRoutine;
     private WaitForSeconds _interval;
+    private bool _enableDetection;
 
-    private IHighlightable _highlightable;
+    private IHighlightable _currentHighlightable;
 
     private void Awake() => _interval = new WaitForSeconds(_checkRate);
 
@@ -32,18 +33,22 @@ public class Interactor : MonoBehaviour
 
     public void StartDetection()
     {
+        _enableDetection = true;
+
         _checkRoutine = StartCoroutine(CheckRoutine());
     }
 
     public void StopDetection()
     {
+        _enableDetection = false;
+
         if (_checkRoutine != null)
             StopCoroutine(_checkRoutine);
     }
 
     private IEnumerator CheckRoutine()
     {
-        while (true)
+        while (_enableDetection)
         {
             CheckForPickup();
             yield return _interval;
@@ -61,8 +66,23 @@ public class Interactor : MonoBehaviour
 
         if (colliders > 0)
         {
-            if (_results[0].TryGetComponent(out IHighlightable highlightable) && _highlightable != highlightable)
-                highlightable.Highlight();
+            if (_results[0].TryGetComponent(out IHighlightable highlightable))
+            {
+                if (highlightable == _currentHighlightable) return;
+
+                _currentHighlightable = highlightable;
+                _currentHighlightable.Highlight();
+            }
+            else
+            {
+                _currentHighlightable?.UnHighlight();
+                _currentHighlightable = null;
+            }
+        }
+        else
+        {
+            _currentHighlightable?.UnHighlight();
+            _currentHighlightable = null;
         }
     }
 
