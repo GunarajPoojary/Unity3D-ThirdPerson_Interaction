@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-1309706063904037244
+--- !u!114 &-6673435817456117386
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -19,17 +19,17 @@ MonoBehaviour:
     m_Bits: 1
   layerMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 512
   renderQueue: 0
   occlusion: 2
   maskingStrategy: 0
   color: {r: 1, g: 1, b: 1, a: 1}
   enableOcclusion: 0
   occludedColor: {r: 1, g: 0, b: 0, a: 1}
-  blendMode: 0
-  extrusionMethod: 0
+  blendMode: 2
+  extrusionMethod: 1
   scaling: 0
-  width: 10
+  width: 2
   minWidth: 0
   scaleWithResolution: 0
   referenceResolution: 2
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28765dc7302cd49b59c0e9ac8862cf45, type: 3}
   m_Name: Free Outline Settings
   m_EditorClassIdentifier: 
-  injectionPoint: 550
-  showInSceneView: 0
+  injectionPoint: 600
+  showInSceneView: 1
   outlines:
-  - {fileID: -1309706063904037244}
+  - {fileID: -6673435817456117386}

@@ -1,5 +1,4 @@
 using UnityEngine;
-using System;
 using System.Collections;
 
 /// <summary>
@@ -16,22 +15,17 @@ public class InteractionSensor : MonoBehaviour
 
     [Header("Debug")]
     [SerializeField] private bool _enableGizmo;
+    [SerializeField] private InteractableEventChannel _interactableEvent;
 
     private readonly Collider[] _results = new Collider[1];
     private Coroutine _checkRoutine;
     private WaitForSeconds _interval;
     private bool _enableDetection;
 
-    private IHighlightable _currentDetected;
-
-    // Events
-    public event Action<IHighlightable> OnInteractableFound;
-    public event Action<IHighlightable> OnInteractableLost;
+    private IInteractable _currentDetected;
 
     private void Awake() => _interval = new WaitForSeconds(_checkRate);
-
     private void Start() => StartDetection();
-
     private void OnDestroy() => StopDetection();
 
     /// <summary>
@@ -71,44 +65,41 @@ public class InteractionSensor : MonoBehaviour
     /// </summary>
     private void Detect()
     {
+        Vector3 center = transform.TransformPoint(_positionOffset);
+
         int colliders = Physics.OverlapSphereNonAlloc(
-            transform.position + _positionOffset,
+            center,
             _radius,
             _results,
             _interactableLayer,
             QueryTriggerInteraction.Ignore);
 
-        if (colliders > 0 && _results[0].TryGetComponent(out IHighlightable highlightable))
+        if (colliders > 0 && _results[0].TryGetComponent(out IInteractable interactable))
         {
-            if (highlightable == _currentDetected) return;
+            if (interactable == _currentDetected) return;
 
             // Found a new interactable
-            OnInteractableLost?.Invoke(_currentDetected);
-            _currentDetected = highlightable;
-            OnInteractableFound?.Invoke(_currentDetected);
+            _interactableEvent.RaiseLost(_currentDetected);
+            _currentDetected = interactable;
+            _interactableEvent.RaiseFound(_currentDetected);
         }
         else
         {
             if (_currentDetected != null)
             {
                 // Lost the previously detected interactable
-                OnInteractableLost?.Invoke(_currentDetected);
+                _interactableEvent.RaiseLost(_currentDetected);
                 _currentDetected = null;
             }
         }
     }
 
-    /// <summary>
-    /// Draws a gizmo in the editor to visualize the detection sphere (for debugging).
-    /// </summary>
     private void OnDrawGizmos()
     {
         if (!_enableGizmo) return;
 
         Gizmos.color = Color.yellow;
-        Matrix4x4 rotationMatrix = Matrix4x4.TRS(transform.position, transform.rotation, Vector3.one);
-        Gizmos.matrix = rotationMatrix;
 
-        Gizmos.DrawSphere(_positionOffset, _radius);
+        Gizmos.DrawWireSphere(transform.TransformPoint(_positionOffset), _radius);
     }
 }

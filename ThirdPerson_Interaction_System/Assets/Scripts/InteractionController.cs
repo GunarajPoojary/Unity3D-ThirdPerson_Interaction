@@ -1,55 +1,59 @@
-using StarterAssets;
 using UnityEngine;
 
 /// <summary>
 /// Manages highlighting and interaction with detected interactables.
 /// Subscribes to events from InteractionSensor.
 /// </summary>
-[RequireComponent(typeof(InteractionSensor))]
 public class InteractionController : MonoBehaviour
 {
-    private InteractionSensor _sensor;
-    private IHighlightable _currentHighlightable;
-    private StarterAssetsInputs _input;
+    [SerializeField] private InputReader _inputReader;
 
-    private void Awake()
-    {
-        _sensor = GetComponent<InteractionSensor>();
-        _input = GetComponent<StarterAssetsInputs>();
-    }
+    [SerializeField] private InteractableEventChannel _interactableEvent;
+    [SerializeField] private InteractEventChannel _interactEvent;
+    [SerializeField] private InteractableHoverEventChannel _interactableHoverEvent;
+    private IHighlightable _currentHighlightable;
+    private IInteractable _currentInteractable;
 
     private void OnEnable()
     {
-        _sensor.OnInteractableFound += HandleInteractableFound;
-        _sensor.OnInteractableLost += HandleInteractableLost;
+        _interactableEvent.OnInteractableFound += HandleInteractableFound;
+        _interactableEvent.OnInteractableLost += HandleInteractableLost;
+
+        _inputReader.InteractStartedAction += Interact;
     }
 
     private void OnDisable()
     {
-        _sensor.OnInteractableFound -= HandleInteractableFound;
-        _sensor.OnInteractableLost -= HandleInteractableLost;
+        _interactableEvent.OnInteractableFound -= HandleInteractableFound;
+        _interactableEvent.OnInteractableLost -= HandleInteractableLost;
+
+        _inputReader.InteractStartedAction -= Interact;
     }
 
-    private void Update()
+    private void HandleInteractableFound(IInteractable interactable)
     {
-        if (_input.interact)
+        if (interactable is IHighlightable highlightable)
         {
-            Interact();
-            _input.interact = false;
+            _currentHighlightable = highlightable;
+            _currentHighlightable?.Highlight();
+            _interactableHoverEvent.RaiseFound(interactable.UIAnchor, interactable.InteractableType);
         }
+
+        _currentInteractable = interactable;
     }
 
-    private void HandleInteractableFound(IHighlightable highlightable)
+    private void HandleInteractableLost(IInteractable interactable)
     {
-        _currentHighlightable = highlightable;
-        _currentHighlightable.Highlight();
-    }
+        if (interactable is IHighlightable highlightable)
+        {
+            highlightable?.UnHighlight();
+            _interactableHoverEvent.RaiseLost();
 
-    private void HandleInteractableLost(IHighlightable highlightable)
-    {
-        highlightable?.UnHighlight();
-        if (_currentHighlightable == highlightable)
-            _currentHighlightable = null;
+            if (_currentHighlightable == highlightable)
+                _currentHighlightable = null;
+        }
+
+        _currentInteractable = null;
     }
 
     /// <summary>
@@ -57,9 +61,7 @@ public class InteractionController : MonoBehaviour
     /// </summary>
     public void Interact()
     {
-        if (_currentHighlightable is IInteractable interactable)
-        {
-            interactable.Interact();
-        }
+        _currentInteractable?.Interact();
+        _interactEvent.RaiseEvent();
     }
 }
