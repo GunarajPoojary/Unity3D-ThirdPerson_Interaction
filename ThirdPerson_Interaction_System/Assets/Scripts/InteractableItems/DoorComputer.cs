@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DoorComputer : InteractableItem
+public class DoorComputer : InteractableObject
 {
     [SerializeField] private Door _door;
     [SerializeField] private LayerMask _interactableLayer;

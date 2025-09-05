@@ -1,7 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 
-public class Chest : InteractableItem
+public class Chest : InteractableObject
 {
     [SerializeField] private Transform _crateTop;
     [SerializeField] private Vector3 _openAngle;
