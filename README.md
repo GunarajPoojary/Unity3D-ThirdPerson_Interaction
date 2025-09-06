@@ -99,11 +99,4 @@ This system focuses on modularity, clean architecture using ScriptableObjects fo
 - ✔️ Easy to extend: Add new interactable objects by implementing the interfaces  
 - ✔️ Clear visual feedback  
 - ✔️ Fully configurable via Unity Inspector  
-- ✔️ No monolithic hardcoded logic  
-
----
-
-## 📚 Dependencies
-
-- [DOTween](http://dotween.demigiant.com/) – For smooth animations  
-- [TextMeshPro](https://docs.unity3d.com/Packages/com.unity.textmeshpro@3.0/manual/index.html) – For UI text  
+- ✔️ No monolithic hardcoded logic 
