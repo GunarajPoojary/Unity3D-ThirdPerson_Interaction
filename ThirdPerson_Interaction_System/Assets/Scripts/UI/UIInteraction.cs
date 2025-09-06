@@ -1,41 +1,55 @@
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Handles displaying and hiding the interaction UI prompt when the player looks at an interactable object.
+/// </summary>
 public class UIInteraction : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _interactionTypeText;
-    [SerializeField] private InteractEventChannel _interactEvent;
     [SerializeField] private GameObject _canvas;
-    [SerializeField] private InteractableHoverEventChannel _interactableHoverEvent;
+    [SerializeField] private VoidEventChannelSO _interactEvent;
+    [SerializeField] private InteractableHoverUIEventChannelSO _interactableHoverEvent;
+    [SerializeField] private VoidEventChannelSO _interactableLostEvent;
 
     private void OnEnable()
     {
-        _interactableHoverEvent.OnInteractableHover += Show;
-        _interactableHoverEvent.OnInteractableLost += Hide;
-        _interactEvent.OnInteract += Hide;
+        // Subscribe to hover and lost events
+        _interactableHoverEvent.OnEventRaised += Show;
+        _interactableLostEvent.OnEventRaised += Hide;
+        _interactEvent.OnEventRaised += Hide;
     }
 
     private void OnDisable()
     {
-        _interactableHoverEvent.OnInteractableHover -= Show;
-        _interactableHoverEvent.OnInteractableLost -= Hide;
-        _interactEvent.OnInteract -= Hide;
+        _interactableHoverEvent.OnEventRaised -= Show;
+        _interactableLostEvent.OnEventRaised -= Hide;
+        _interactEvent.OnEventRaised -= Hide;
     }
 
     private void Start() => Hide();
 
-    public void Show(Transform parent, InteractableType interactableType)
+    /// <summary>
+    /// Shows the interaction UI at the given transform anchor, with appropriate text.
+    /// </summary>
+    /// <param name="value">Tuple containing UI anchor and interaction type</param>
+    public void Show((Transform parent, InteractableType interactableType) value)
     {
-        _canvas.transform.SetParent(parent);
+        _canvas.transform.SetParent(value.parent);
         _canvas.transform.localPosition = Vector3.zero;
-        _interactionTypeText.text = interactableType.ToString();
+
+        // Display appropriate interaction type text
+        _interactionTypeText.text = (value.interactableType == InteractableType.OpenClose) ? "Open/Close" : value.interactableType.ToString();
+
         _canvas.SetActive(true);
     }
 
-    public void Hide()
+    /// <summary>
+    /// Hides the interaction UI and resets its parent.
+    /// </summary>
+    public void Hide(Empty e = null)
     {
         _canvas.transform.SetParent(transform);
-
         _canvas.SetActive(false);
     }
 }

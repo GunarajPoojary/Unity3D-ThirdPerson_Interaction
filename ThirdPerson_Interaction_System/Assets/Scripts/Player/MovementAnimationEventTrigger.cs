@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Handles playing footstep and landing sounds triggered by animation events.
+/// </summary>
 public class MovementAnimationEventTrigger : MonoBehaviour
 {
     [SerializeField] private AudioClip _landingAudioClip;
@@ -8,20 +11,17 @@ public class MovementAnimationEventTrigger : MonoBehaviour
 
     private CharacterController _controller;
 
-    private void Awake()
-    {
-        _controller = GetComponentInParent<CharacterController>();
-    }
+    private void Awake() => _controller = GetComponentInParent<CharacterController>();
 
     private void OnFootstep(AnimationEvent animationEvent)
     {
-        if (animationEvent.animatorClipInfo.weight > 0.5f)
+        if (animationEvent.animatorClipInfo.weight > 0.5f && _footstepAudioClips.Length > 0)
         {
-            if (_footstepAudioClips.Length > 0)
-            {
-                var index = Random.Range(0, _footstepAudioClips.Length);
-                AudioSource.PlayClipAtPoint(_footstepAudioClips[index], transform.TransformPoint(_controller.center), _footstepAudioVolume);
-            }
+            var index = Random.Range(0, _footstepAudioClips.Length);
+            AudioSource.PlayClipAtPoint(
+                _footstepAudioClips[index],
+                transform.TransformPoint(_controller.center),
+                _footstepAudioVolume);
         }
     }
 
@@ -29,7 +29,10 @@ public class MovementAnimationEventTrigger : MonoBehaviour
     {
         if (animationEvent.animatorClipInfo.weight > 0.5f)
         {
-            AudioSource.PlayClipAtPoint(_landingAudioClip, transform.TransformPoint(_controller.center), _footstepAudioVolume);
+            AudioSource.PlayClipAtPoint(
+                _landingAudioClip,
+                transform.TransformPoint(_controller.center),
+                _footstepAudioVolume);
         }
     }
 }
