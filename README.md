@@ -107,10 +107,3 @@ This system focuses on modularity, clean architecture using ScriptableObjects fo
 
 - [DOTween](http://dotween.demigiant.com/) – For smooth animations  
 - [TextMeshPro](https://docs.unity3d.com/Packages/com.unity.textmeshpro@3.0/manual/index.html) – For UI text  
-
-MIT License – Free to use and extend in your projects.
-
-🚀 Contribution
-
-Feel free to fork and submit PRs.
-For bug reports and feature requests, please open an issue.
