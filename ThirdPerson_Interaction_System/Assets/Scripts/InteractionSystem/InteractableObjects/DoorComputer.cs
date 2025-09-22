@@ -2,26 +2,18 @@ using UnityEngine;
 
 /// <summary>
 /// Represents a computer that interacts with a Door, allowing opening/closing via interaction.
-/// Implements IInteractable and IHighlightable for interaction and visual feedback.
 /// </summary>
+[RequireComponent(typeof(Interactable))]
 public class DoorComputer : MonoBehaviour
 {
     [SerializeField] private Door _door;
     [SerializeField] private int _interactableLayerIndex = 6;
 
-    [field: SerializeField] public InteractableType InteractableType { get; private set; }
-    [field: SerializeField] public Transform UIAnchor { get; private set; }
-
-    public bool CanInteract => throw new System.NotImplementedException();
-
     private const int DEFAULTLAYERINDEX = 0;
 
     private Interactable _interactable;
 
-    private void Awake()
-    {
-        _interactable = GetComponent<Interactable>();
-    }
+    private void Awake() => _interactable = GetComponent<Interactable>();
 
     private void OnEnable()
     {
@@ -37,7 +29,7 @@ public class DoorComputer : MonoBehaviour
         _door.OnDoorToggled -= ToggleInteractivity;
     }
 
-    public void Toggle()
+    private void Toggle()
     {
         _door.OpenOrClose();
         gameObject.layer = DEFAULTLAYERINDEX;

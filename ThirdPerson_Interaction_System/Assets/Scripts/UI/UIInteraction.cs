@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 
 /// <summary>
-/// Handles displaying and hiding the interaction UI prompt when the player looks at an interactable object.
+/// Handles displaying and hiding the interaction UI prompt when the player's within the interaction range of an interactable object.
 /// </summary>
 public class UIInteraction : MonoBehaviour
 {
@@ -33,13 +33,13 @@ public class UIInteraction : MonoBehaviour
     /// Shows the interaction UI at the given transform anchor, with appropriate text.
     /// </summary>
     /// <param name="value">Tuple containing UI anchor and interaction type</param>
-    public void Show((Transform parent, InteractableType interactableType) value)
+    public void Show((Transform parent, string InteractionTypeName) value)
     {
         _canvas.transform.SetParent(value.parent);
         _canvas.transform.localPosition = Vector3.zero;
 
         // Display appropriate interaction type text
-        _interactionTypeText.text = (value.interactableType == InteractableType.OpenClose) ? "Open/Close" : value.interactableType.ToString();
+        _interactionTypeText.text = value.InteractionTypeName;
 
         _canvas.SetActive(true);
     }

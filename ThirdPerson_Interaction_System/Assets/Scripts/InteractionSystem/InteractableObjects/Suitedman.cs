@@ -2,19 +2,14 @@ using UnityEngine;
 
 /// <summary>
 /// Represents a Suited Man character that can be interacted with.
-/// Implements IInteractable and IHighlightable for interaction and visual feedback.
 /// Plays an animation and displays a chat bubble on interaction.
 /// </summary>
+[RequireComponent(typeof(Interactable))]
 public class Suitedman : MonoBehaviour
 {
     [SerializeField] private ChatBubble _chatBubble;
     [SerializeField] private int _interactableLayerIndex = 6;
     [SerializeField] private Animator _animator;
-
-    [field: SerializeField] public InteractableType InteractableType { get; private set; }
-    [field: SerializeField] public Transform UIAnchor { get; private set; }
-
-    public bool CanInteract => throw new System.NotImplementedException();
 
     private const int DEFAULTLAYERINDEX = 0;
     private Interactable _interactable;
@@ -29,15 +24,9 @@ public class Suitedman : MonoBehaviour
         GetComponentInChildren<SuitedmanAnimationEventTrigger>().OnInteractAnimationEndAction = ToggleInteractivity;
     }
 
-    private void OnEnable()
-    {
-        _interactable.OnInteract += Talk;
-    }
+    private void OnEnable() => _interactable.OnInteract += Talk;
 
-    private void OnDisable()
-    {
-        _interactable.OnInteract -= Talk;
-    }
+    private void OnDisable() => _interactable.OnInteract -= Talk;
 
     private void Talk()
     {

@@ -7,7 +7,7 @@ public interface IInteractable
     /// </summary>
     Transform UIAnchor { get; }
     bool CanInteract { get; }
-    InteractableType InteractableType { get; }
+    string InteractionTypeName { get; }
     void Interact();
     void OnFocusGained();
     void OnFocusLost();

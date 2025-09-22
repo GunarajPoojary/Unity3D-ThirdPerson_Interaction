@@ -1563,8 +1563,6 @@ MonoBehaviour:
   _chatBubble: {fileID: 488935395}
   _interactableLayerIndex: 6
   _animator: {fileID: 751270840837906622}
-  <InteractableType>k__BackingField: 0
-  <UIAnchor>k__BackingField: {fileID: 51095453}
 --- !u!114 &1099650673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1580,7 +1578,7 @@ MonoBehaviour:
   _outlineWidth: 4
   _outlineColor: {r: 1, g: 1, b: 1, a: 1}
   <UIAnchor>k__BackingField: {fileID: 51095453}
-  <InteractableType>k__BackingField: 0
+  <InteractionTypeName>k__BackingField: Talk
 --- !u!1 &1108057206
 GameObject:
   m_ObjectHideFlags: 0
@@ -2338,8 +2336,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _door: {fileID: 2014944239268257296}
   _interactableLayerIndex: 6
-  <InteractableType>k__BackingField: 2
-  <UIAnchor>k__BackingField: {fileID: 1217975323}
 --- !u!114 &1829462176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2355,7 +2351,7 @@ MonoBehaviour:
   _outlineWidth: 4
   _outlineColor: {r: 1, g: 1, b: 1, a: 1}
   <UIAnchor>k__BackingField: {fileID: 1217975323}
-  <InteractableType>k__BackingField: 2
+  <InteractionTypeName>k__BackingField: Open/Close
 --- !u!1 &1835804958
 GameObject:
   m_ObjectHideFlags: 0
@@ -16460,7 +16456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e816cb9c48a04c948b39c02bcd062c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _crateTop: {fileID: 3183851223607113810}
+  _chestTop: {fileID: 0}
   _openAngle: {x: 210, y: 0, z: 0}
   _openTweenDuration: 0.5
 --- !u!65 &6473655532400667489
@@ -16499,7 +16495,7 @@ MonoBehaviour:
   _outlineWidth: 4
   _outlineColor: {r: 1, g: 1, b: 1, a: 1}
   <UIAnchor>k__BackingField: {fileID: 1873409879}
-  <InteractableType>k__BackingField: 3
+  <InteractionTypeName>k__BackingField: Open
 --- !u!1 &6501918535932749522
 GameObject:
   m_ObjectHideFlags: 0

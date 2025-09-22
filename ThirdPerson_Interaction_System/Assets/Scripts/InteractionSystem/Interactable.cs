@@ -7,7 +7,7 @@ public class Interactable : MonoBehaviour, IInteractable
     [SerializeField] private Color _outlineColor = Color.white;
     private bool _isEnabled = true;
     [field: SerializeField] public Transform UIAnchor { get; private set; }
-    [field: SerializeField] public InteractableType InteractableType { get; private set; }
+    [field: SerializeField] public string InteractionTypeName { get; private set; }
     
     private Outline _outline;
 

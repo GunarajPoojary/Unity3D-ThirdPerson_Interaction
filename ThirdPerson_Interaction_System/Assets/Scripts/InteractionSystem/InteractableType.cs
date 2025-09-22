@@ -1,1 +1,0 @@
-public enum InteractableType { Talk, PickUp, OpenClose, Open }

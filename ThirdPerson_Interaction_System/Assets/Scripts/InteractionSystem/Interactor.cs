@@ -101,7 +101,7 @@ public class Interactor : MonoBehaviour
         if (_focused != null)
         {
             _focused.OnFocusGained();
-            _interactableHoverEvent.RaiseEvent((_focused.UIAnchor, _focused.InteractableType));
+            _interactableHoverEvent.RaiseEvent((_focused.UIAnchor, _focused.InteractionTypeName));
         }
     }
 
