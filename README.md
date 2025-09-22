@@ -1,4 +1,4 @@
-# 🎮 Third-Person Interaction System for Unity
+# Third-Person Interaction System for Unity
 
 A robust and extensible interaction system for third-person Unity games, designed to manage interactions with objects like chests, doors, NPCs, and in-world UI prompts.  
 This system focuses on modularity, clean architecture using ScriptableObjects for event-driven communication, and visual feedback for intuitive gameplay.
@@ -6,28 +6,30 @@ This system focuses on modularity, clean architecture using ScriptableObjects fo
 ---
 
 ## Gameplay
-![Demo](Media/InteractionSystem.gif)  
+<img src="Media/InteractionSystem.gif" alt="Demo" loading="eager" />  
 
-## ✅ Features
+---
 
-- ✅ Interaction system using `IInteractable` and `IHighlightable` interfaces  
-- ✅ Highlight interactable objects with layer-based outline visuals  
-- ✅ Supports multiple interaction types:
+## Features
+
+- Interaction system using `IInteractable` and `IHighlightable` interfaces  
+- Highlight interactable objects with layer-based outline visuals  
+- Supports multiple interaction types:
     - Talk  
     - PickUp  
     - OpenClose  
     - Open  
-- ✅ Event-driven architecture using generic `EventChannel<T>`  
-- ✅ Handles interaction UI prompts (interaction type, anchored near interactable)  
-- ✅ Smooth third-person camera control  
-- ✅ Footstep and landing sounds triggered by animation events  
-- ✅ Customizable jump, sprint, and movement settings  
-- ✅ Chat bubble UI for displaying messages  
-- ✅ Well-structured code with clear separation of concerns  
+- Event-driven architecture using generic `EventChannel<T>`  
+- Handles interaction UI prompts (interaction type, anchored near interactable)  
+- Smooth third-person camera control  
+- Footstep and landing sounds triggered by animation events  
+- Customizable jump, sprint, and movement settings  
+- Chat bubble UI for displaying messages  
+- Well-structured code with clear separation of concerns  
 
 ---
 
-## 🎯 System Architecture
+## System Architecture
 
 ### Core Concepts
 - Interactable Objects implement `IInteractable` and optionally `IHighlightable`.  
@@ -37,7 +39,7 @@ This system focuses on modularity, clean architecture using ScriptableObjects fo
 - `UIInteraction` handles showing/hiding interaction prompts.  
 - `OutlineHighlighter` applies layer-based highlighting.
 
-### 📦 Key Components
+### Key Components
 
 #### Interfaces
 - `IInteractable`: Defines `Interact()` method, `InteractableType`, and `UIAnchor`.  
@@ -65,7 +67,7 @@ This system focuses on modularity, clean architecture using ScriptableObjects fo
 
 ---
 
-## ⚙️ Usage
+## Usage
 
 ### 1. Setup Scene
 - Add `InteractionSensor` and `InteractionController` to your player.  
@@ -87,7 +89,7 @@ This system focuses on modularity, clean architecture using ScriptableObjects fo
 
 ---
 
-## ⚡ Example Interaction Flow
+## Example Interaction Flow
 
 1. Player approaches a chest → `InteractionSensor` detects it → raises `OnInteractableFound`.  
 2. `InteractionController` highlights chest and shows interaction UI prompt.  
@@ -96,10 +98,10 @@ This system focuses on modularity, clean architecture using ScriptableObjects fo
 
 ---
 
-## 🎯 Why This System?
+## Why This System?
 
-- ✔️ Decoupled, reusable architecture  
-- ✔️ Easy to extend: Add new interactable objects by implementing the interfaces  
-- ✔️ Clear visual feedback  
-- ✔️ Fully configurable via Unity Inspector  
-- ✔️ No monolithic hardcoded logic 
+- Decoupled, reusable architecture  
+- Easy to extend: Add new interactable objects by implementing the interfaces  
+- Clear visual feedback  
+- Fully configurable via Unity Inspector  
+- No monolithic hardcoded logic  
