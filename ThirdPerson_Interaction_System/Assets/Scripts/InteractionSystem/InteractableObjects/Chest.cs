@@ -1,34 +1,38 @@
 using UnityEngine;
 using DG.Tweening;
 
-/// <summary>
-/// Represents a Chest interactable object.
-/// Implements IInteractable and IHighlightable for interaction and visual highlighting functionality.
-/// </summary>
-[RequireComponent(typeof(OutlineHighlighter))]
-public class Chest : MonoBehaviour, IInteractable, IHighlightable
+namespace InteractionSystem
 {
-    [SerializeField] private Transform _crateTop;
-    [SerializeField] private Vector3 _openAngle;
-    [SerializeField] private float _openDuration = 0.5f;
-
-    private OutlineHighlighter _highlighter;
-
-    [field: SerializeField] public InteractableType InteractableType { get; private set; }  
-    [field: SerializeField] public Transform UIAnchor { get; private set; }                 
-    private const int DEFAULTLAYERINDEX = 0;
-
-    private void Awake() => _highlighter = GetComponent<OutlineHighlighter>();
-    private void Start() => _highlighter.UnHighlight();
-    private void OnDestroy() => _highlighter.UnHighlight();
-
-    public void Highlight() => _highlighter.Highlight();
-    public void UnHighlight() => _highlighter.UnHighlight();
-
-    public void Interact()
+    /// <summary>
+    /// Represents a Chest interactable object.
+    /// Implements IInteractable and IHighlightable for interaction and visual highlighting functionality.
+    /// </summary>
+    public class Chest : MonoBehaviour
     {
-        _crateTop.DOLocalRotate(_openAngle, _openDuration);
-        _highlighter.UnHighlight();
-        gameObject.layer = DEFAULTLAYERINDEX;
+        [SerializeField] private Transform _crateTop;
+        [SerializeField] private Vector3 _openAngle;
+        [SerializeField] private float _openTweenDuration = 0.5f;
+
+        private const int DEFAULTLAYERINDEX = 0;
+        private Interactable _interactable;
+
+        private void Awake()
+        {
+            _interactable = GetComponent<Interactable>();
+        }
+
+        private void OnEnable() {
+            _interactable.OnInteract += Open;
+        }
+
+        private void OnDisable() {
+            _interactable.OnInteract -= Open;
+        }
+
+        public void Open()
+        {
+            _crateTop.DOLocalRotate(_openAngle, _openTweenDuration);
+            gameObject.layer = DEFAULTLAYERINDEX;
+        }
     }
 }

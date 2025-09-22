@@ -5,39 +5,43 @@ using UnityEngine;
 /// Implements IInteractable and IHighlightable for interaction and visual feedback.
 /// Plays an animation and displays a chat bubble on interaction.
 /// </summary>
-[RequireComponent(typeof(OutlineHighlighter))]
-public class Suitedman : MonoBehaviour, IInteractable, IHighlightable
+public class Suitedman : MonoBehaviour
 {
-    [SerializeField] private ChatBubble _chatBubble;          
-    [SerializeField] private int _interactableLayerIndex = 6; 
-    [SerializeField] private Animator _animator;              
-
-    private OutlineHighlighter _highlighter;
+    [SerializeField] private ChatBubble _chatBubble;
+    [SerializeField] private int _interactableLayerIndex = 6;
+    [SerializeField] private Animator _animator;
 
     [field: SerializeField] public InteractableType InteractableType { get; private set; }
     [field: SerializeField] public Transform UIAnchor { get; private set; }
 
+    public bool CanInteract => throw new System.NotImplementedException();
+
     private const int DEFAULTLAYERINDEX = 0;
+    private Interactable _interactable;
+
     private static readonly int InteractTrigger = Animator.StringToHash("Interact");
 
     private void Awake()
     {
-        _highlighter = GetComponent<OutlineHighlighter>();
+        _interactable = GetComponent<Interactable>();
 
         // Set callback for when animation ends
         GetComponentInChildren<SuitedmanAnimationEventTrigger>().OnInteractAnimationEndAction = ToggleInteractivity;
     }
 
-    private void Start() => _highlighter.UnHighlight();
-    private void OnDestroy() => _highlighter.UnHighlight();
+    private void OnEnable()
+    {
+        _interactable.OnInteract += Talk;
+    }
 
-    public void Highlight() => _highlighter.Highlight();
-    public void UnHighlight() => _highlighter.UnHighlight();
-    
-    public void Interact()
+    private void OnDisable()
+    {
+        _interactable.OnInteract -= Talk;
+    }
+
+    private void Talk()
     {
         _animator.SetTrigger(InteractTrigger);
-        _highlighter.UnHighlight();
         gameObject.layer = DEFAULTLAYERINDEX;
         _chatBubble.ShowMessage();
     }

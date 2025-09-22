@@ -376,7 +376,6 @@ GameObject:
   - component: {fileID: 89227060}
   - component: {fileID: 89227059}
   - component: {fileID: 89227058}
-  - component: {fileID: 89227057}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -401,22 +400,6 @@ Transform:
   - {fileID: 235966475}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!114 &89227057
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 89227055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93bb4218404479a44a5c3aca167ddfb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _inputReader: {fileID: 11400000, guid: 7e625450d65f6f2458625eeb31441ded, type: 2}
-  _interactableLostEvent: {fileID: 11400000, guid: 3bb62870c2bbd2e4fa193c3302b0c86f, type: 2}
-  _interactEvent: {fileID: 11400000, guid: c333f25ee47b3d84888e0bce5a206042, type: 2}
-  _interactableHoverEvent: {fileID: 11400000, guid: 1a0e83640eb59fd40b3ff91cc3c3d63a, type: 2}
 --- !u!114 &89227058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -429,6 +412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36c02c5a34893c746a5f04dede515079, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _inputReader: {fileID: 11400000, guid: 7e625450d65f6f2458625eeb31441ded, type: 2}
   _positionOffset: {x: 0, y: 1, z: 1}
   _radius: 0.7
   _interactableLayer:
@@ -436,6 +420,7 @@ MonoBehaviour:
     m_Bits: 64
   _checkRate: 0.25
   _interactableLostEvent: {fileID: 11400000, guid: 3bb62870c2bbd2e4fa193c3302b0c86f, type: 2}
+  _interactableHoverEvent: {fileID: 11400000, guid: 1a0e83640eb59fd40b3ff91cc3c3d63a, type: 2}
   _enableGizmo: 1
 --- !u!114 &89227059
 MonoBehaviour:
@@ -1515,7 +1500,7 @@ GameObject:
   - component: {fileID: 1099650669}
   - component: {fileID: 1099650670}
   - component: {fileID: 1099650672}
-  - component: {fileID: 1099650671}
+  - component: {fileID: 1099650673}
   m_Layer: 6
   m_Name: SuitedMan
   m_TagString: Untagged
@@ -1563,24 +1548,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
---- !u!114 &1099650671
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1099650668}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40cbacb5b027e5b48b3fbbce4b96ce02, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _outlineLayerIndex: 9
-  _visuals:
-  - {fileID: 1415179605582869823}
-  - {fileID: 234301134295718040}
-  - {fileID: 3435855538876446460}
-  - {fileID: 8128992033558710519}
 --- !u!114 &1099650672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1598,6 +1565,22 @@ MonoBehaviour:
   _animator: {fileID: 751270840837906622}
   <InteractableType>k__BackingField: 0
   <UIAnchor>k__BackingField: {fileID: 51095453}
+--- !u!114 &1099650673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1099650668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e23d257912f0fb54e81adcb2fdd9c749, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _outlineWidth: 4
+  _outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  <UIAnchor>k__BackingField: {fileID: 51095453}
+  <InteractableType>k__BackingField: 0
 --- !u!1 &1108057206
 GameObject:
   m_ObjectHideFlags: 0
@@ -2366,12 +2349,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1829462172}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40cbacb5b027e5b48b3fbbce4b96ce02, type: 3}
+  m_Script: {fileID: 11500000, guid: e23d257912f0fb54e81adcb2fdd9c749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _outlineLayerIndex: 9
-  _visuals:
-  - {fileID: 2336832173560131347}
+  _outlineWidth: 4
+  _outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  <UIAnchor>k__BackingField: {fileID: 1217975323}
+  <InteractableType>k__BackingField: 2
 --- !u!1 &1835804958
 GameObject:
   m_ObjectHideFlags: 0
@@ -16478,9 +16462,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _crateTop: {fileID: 3183851223607113810}
   _openAngle: {x: 210, y: 0, z: 0}
-  _openDuration: 0.5
-  <InteractableType>k__BackingField: 3
-  <UIAnchor>k__BackingField: {fileID: 1873409879}
+  _openTweenDuration: 0.5
 --- !u!65 &6473655532400667489
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16511,13 +16493,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5952874446569845221}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40cbacb5b027e5b48b3fbbce4b96ce02, type: 3}
+  m_Script: {fileID: 11500000, guid: e23d257912f0fb54e81adcb2fdd9c749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _outlineLayerIndex: 9
-  _visuals:
-  - {fileID: 5293365703617299099}
-  - {fileID: 2776181276200185914}
+  _outlineWidth: 4
+  _outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  <UIAnchor>k__BackingField: {fileID: 1873409879}
+  <InteractableType>k__BackingField: 3
 --- !u!1 &6501918535932749522
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,9 +12,9 @@ public class Door : MonoBehaviour
     [SerializeField] private Vector3 _doorOpenLocalOffset;
     [SerializeField] private float _openDuration = 0.5f;
 
-    private Vector3 _leftClosedPos; 
+    private Vector3 _leftClosedPos;
     private Vector3 _rightClosedPos;
-    private bool _isOpen = false;   
+    private bool _isOpen = false;
 
     public event Action OnDoorToggled;
 

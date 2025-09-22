@@ -4,34 +4,42 @@ using UnityEngine;
 /// Represents a computer that interacts with a Door, allowing opening/closing via interaction.
 /// Implements IInteractable and IHighlightable for interaction and visual feedback.
 /// </summary>
-[RequireComponent(typeof(OutlineHighlighter))]
-public class DoorComputer : MonoBehaviour, IInteractable, IHighlightable
+public class DoorComputer : MonoBehaviour
 {
     [SerializeField] private Door _door;
     [SerializeField] private int _interactableLayerIndex = 6;
 
-    private OutlineHighlighter _highlighter;
-
     [field: SerializeField] public InteractableType InteractableType { get; private set; }
     [field: SerializeField] public Transform UIAnchor { get; private set; }
 
+    public bool CanInteract => throw new System.NotImplementedException();
+
     private const int DEFAULTLAYERINDEX = 0;
 
-    private void Awake() => _highlighter = GetComponent<OutlineHighlighter>();
+    private Interactable _interactable;
 
-    private void OnEnable() => _door.OnDoorToggled += ToggleInteractivity;
-    private void OnDisable() => _door.OnDoorToggled -= ToggleInteractivity;
+    private void Awake()
+    {
+        _interactable = GetComponent<Interactable>();
+    }
 
-    private void Start() => _highlighter.UnHighlight();
-    private void OnDestroy() => _highlighter.UnHighlight();
+    private void OnEnable()
+    {
+        _interactable.OnInteract += Toggle;
 
-    public void Highlight() => _highlighter.Highlight();
-    public void UnHighlight() => _highlighter.UnHighlight();
+        _door.OnDoorToggled += ToggleInteractivity;
+    }
 
-    public void Interact()
+    private void OnDisable()
+    {
+        _interactable.OnInteract -= Toggle;
+
+        _door.OnDoorToggled -= ToggleInteractivity;
+    }
+
+    public void Toggle()
     {
         _door.OpenOrClose();
-        _highlighter.UnHighlight();
         gameObject.layer = DEFAULTLAYERINDEX;
     }
 

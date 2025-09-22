@@ -26,8 +26,7 @@ MonoBehaviour:
     probeVolumeBlendStatesCS: {fileID: 7200000, guid: b9a23f869c4fd45f19c5ada54dd82176, type: 3}
   m_RendererFeatures:
   - {fileID: 7833122117494664109}
-  - {fileID: 5410828193369978830}
-  m_RendererFeatureMap: ad6b866f10d7b46cce777cf6921f174b
+  m_RendererFeatureMap: ad6b866f10d7b46c
   m_UseNativeRenderPass: 1
   xrSystemData: {fileID: 0}
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
@@ -67,10 +66,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   settings: {fileID: 11400000, guid: b923ed8a66d574b48aa45b3383745685, type: 2}
-  shaders:
-    mask: {fileID: 4800000, guid: 19ae7b440d27f4f9990007afdc74ddaf, type: 3}
-    outline: {fileID: 4800000, guid: fb375234a1509436fa2a7d37f08912f8, type: 3}
-    clear: {fileID: 4800000, guid: b854aa374420b4b47992044f7c9a0719, type: 3}
+  shaders: {mask: {fileID: 4800000, guid: 19ae7b440d27f4f9990007afdc74ddaf, type: 3}, outline: {fileID: 4800000, guid: fb375234a1509436fa2a7d37f08912f8, type: 3}, clear: {fileID: 4800000, guid: b854aa374420b4b47992044f7c9a0719, type: 3}}
+  maskMaterial: {fileID: 0}
+  outlineMaterial: {fileID: 0}
+  clearMaterial: {fileID: 0}
 --- !u!114 &6230532734380919263
 MonoBehaviour:
   m_ObjectHideFlags: 0
