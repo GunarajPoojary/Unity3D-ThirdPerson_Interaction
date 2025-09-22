@@ -83,7 +83,7 @@ These examples show how easily new interactable types can be added using the sys
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/ThirdPersonInteractionSystem.git
+   git clone https://github.com/GunarajPoojary/Unity3D-ThirdPerson_Interaction.git
    ```
 2. Open the project in Unity.
 3. Ensure the **New Input System** package is installed.
