@@ -5,6 +5,9 @@ This system focuses on modularity, clean architecture using ScriptableObjects fo
 
 ---
 
+## Gameplay
+![Demo](Media/InteractionSystem.gif)  
+
 ## ✅ Features
 
 - ✅ Interaction system using `IInteractable` and `IHighlightable` interfaces  
