@@ -6,7 +6,7 @@ This system focuses on modularity, clean architecture using ScriptableObjects fo
 ---
 
 ## Gameplay
-<img src="Media/InteractionSystem.gif" alt="Demo" loading="eager" />  
+<img src="ThirdPerson_Interaction_System/Media/InteractionSystem.gif" alt="Demo" loading="eager" />  
 
 ---
 
