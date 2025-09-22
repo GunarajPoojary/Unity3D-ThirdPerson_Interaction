@@ -1,7 +1,8 @@
 
 # Third-Person Interaction System (Unity)
 
-This repository contains a **Third-Person Interaction System** built with Unity. It demonstrates how to implement player interactions with world objects in a third-person view using clean, modular code. The system is designed for reusability and scalability, making it ideal for RPGs, adventure games, and other interaction-heavy projects.
+A robust and extensible interaction system for third-person Unity games, designed to manage interactions with objects like chests, doors, NPCs, and in-world UI prompts.  
+This system focuses on modularity, clean architecture using ScriptableObjects for event-driven communication, and visual feedback for intuitive gameplay.
 
 ## Gameplay
 
