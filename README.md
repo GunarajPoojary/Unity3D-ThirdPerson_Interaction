@@ -1,5 +1,5 @@
 
-# Third-Person Interaction System (Unity)
+# Third-Person Interaction System
 
 A robust and extensible interaction system for third-person Unity games, designed to manage interactions with objects like chests, doors, NPCs, and in-world UI prompts.  
 This system focuses on modularity, clean architecture using ScriptableObjects for event-driven communication, and visual feedback for intuitive gameplay.
